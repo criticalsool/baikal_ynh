@@ -1,10 +1,10 @@
 # Baïkal for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)  
-[![Install Baïkal with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=baikal)
+[![Install Baïkal with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=baikal)
 
 > *This package allow you to install Baïkal quickly and simply on a YunoHost server.  
-If you don't have YunoHost, please see [here](https://yunohost.org/#/install) to know how to install and enjoy it.*
+If you don't have YunoHost, please see [here](https://yunohost.org/install) to know how to install and enjoy it.*
 
 ## Overview
 [Baïkal](http://baikal-server.com/) is a CalDAV and CardDAV server, based on
@@ -13,6 +13,8 @@ sabre/dav, that includes an administration interface for easy management.
 **Shipped version:** 0.7.1
 
 ## Screenshots
+
+![](http://www.baikal-server.com/res/img/screenshots/dashboard.png)
 
 ## Demo
 
@@ -25,7 +27,7 @@ sabre/dav, that includes an administration interface for easy management.
 ## Documentation
 
  * Official documentation: http://sabre.io/baikal/
- * YunoHost documentation: https://yunohost.org/#/app_baikal
+ * YunoHost documentation: https://yunohost.org/en/app_baikal
 
 ## YunoHost specific features
 
@@ -37,14 +39,14 @@ In addition to Baïkal core features, the following are made available with this
 
 #### Supported architectures
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/baikal%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/baikal/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/baikal%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/baikal/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/baikal.svg)](https://ci-apps.yunohost.org/ci/apps/baikal/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/baikal.svg)](https://ci-apps-arm.yunohost.org/ci/apps/baikal/)
 
 ## Limitations
 
 ## Additional information
 
-* There is a breaking change in the management of the administrator password when upgrading to 0.7.0. You must change the admin password!
+* There is a breaking change in the management of the administrator password when upgrading to 0.7.0 You must change the admin password!
 * To be able to change the admin password, please visit the page: `https://you.domain.tld/yunohost/admin/#/apps/baikal/actions` and set a new password.
 
 ## Links
