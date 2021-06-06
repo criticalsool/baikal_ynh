@@ -20,6 +20,9 @@ domain=$(ynh_app_setting_get --app=$app --key=domain)
 path_url=$(ynh_app_setting_get --app=$app --key=path)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
+phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
+password_hash=$(ynh_app_setting_get --app=$app --key=password_hash)
 
 #=================================================
 # CHECK VERSION
@@ -42,6 +45,18 @@ fi
 if [ -z "$db_name" ]; then
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
 	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+fi
+
+# Cleaning legacy permissions
+if ynh_legacy_permissions_exists; then
+	ynh_legacy_permissions_delete_all
+
+	ynh_app_setting_delete --app=$app --key=is_public
+fi
+
+if ! ynh_permission_exists --permission="admin"; then
+	# Create the required permissions
+	ynh_permission_create --permission="admin" --url="/admin" --allowed="all_users"
 fi
 
 #=================================================
@@ -91,7 +106,6 @@ ynh_script_progression --message="Upgrading NGINX web server configuration..."
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 
 #=================================================
 # UPGRADE DEPENDENCIES
@@ -129,29 +143,19 @@ then
 	#=================================================
 	ynh_script_progression --message="Upgrading Baïkal configuration..." --weight=2
 
-	bk_conf="${final_path}/config/baikal.yaml"
-	ynh_backup_if_checksum_is_different --file="$bk_conf"
-	cp ../conf/baikal.yaml "$bk_conf"
-
-	ynh_replace_string --match_string="__TIMEZONE__" --replace_string="$(cat /etc/timezone)" --target_file="$bk_conf"
-	password_hash=$(ynh_app_setting_get --app=$app --key=password_hash)
-	# If the password_hash is not in the app's config, recreate it from the password.
 	if [ -z "$password_hash" ]; then
 		password=$(ynh_app_setting_get --app=$app --key=password)
 		password_hash=$(echo -n admin:BaikalDAV:$password | md5sum | cut -d ' ' -f 1)
 		ynh_app_setting_set --app=$app --key=password_hash --value=$password_hash
 	fi
-	ynh_replace_string --match_string="__PASSWORDHASH__" --replace_string="${password_hash}" --target_file="$bk_conf"
 
-	ynh_replace_string --match_string="__PATH__" --replace_string="${path_url%/}" --target_file="$bk_conf"
-	ynh_replace_string --match_string="__DBNAME__" --replace_string="$db_name" --target_file="$bk_conf"
-	ynh_replace_string --match_string="__DBUSER__" --replace_string="$db_name" --target_file="$bk_conf"
-	db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
-	ynh_replace_string --match_string="__DBPASS__" --replace_string="$db_pwd" --target_file="$bk_conf"
-
+	bk_conf="${final_path}/config/baikal.yaml"
+	timezone=$(cat /etc/timezone)
+	path=${path_url%/}
 	deskey=$(ynh_app_setting_get --app=$app --key=encrypt_key)
 	ynh_app_setting_set --app=$app --key=encrypt_key --value="$deskey"
-	ynh_replace_string --match_string="__DESKEY__" --replace_string="$deskey" --target_file="$bk_conf"
+
+	ynh_add_config --template="../conf/baikal.yaml" --destination="$bk_conf"
 
 	#=================================================
 	# UPGRADE BAIKAL
@@ -182,22 +186,6 @@ fi
 chown -R root: "$final_path"
 chown $app "$final_path/config/baikal.yaml"
 chmod 640 "$final_path/config/baikal.yaml"
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-ynh_script_progression --message="Configuring SSOwat..." --weight=2
-
-# Upgrade from the legacy permissions system
-protected_uris=$(ynh_app_setting_get --app="$app" --key=protected_uris)
-if [ -n "${protected_uris}" ]; then
-    ynh_app_setting_delete --app="$app" --key=protected_uris
-
-    # Allow public access on /
-    ynh_permission_update --permission "main"  --add "visitors"
-    # But restrain on /admin
-    ynh_permission_create --permission "admin" --url "/admin" --allowed "all_users"
-fi
 
 #=================================================
 # RELOAD NGINX
