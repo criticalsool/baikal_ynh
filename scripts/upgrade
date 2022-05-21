@@ -24,7 +24,7 @@ db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
 phpversion=$YNH_PHP_VERSION
 password_hash=$(ynh_app_setting_get --app=$app --key=password_hash)
-deskey=$(ynh_app_setting_get --app=$app --key=encrypt_key)
+encrypt_key=$(ynh_app_setting_get --app=$app --key=encrypt_key)
 
 #=================================================
 # CHECK VERSION
@@ -61,6 +61,13 @@ fi
 if [ -z "$db_name" ]; then
 	db_name=$(ynh_sanitize_dbid --db_name=$app)
 	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+fi
+
+# If password_hash doesn't exist, create it
+if [ -z "$password_hash" ]; then
+	password=$(ynh_app_setting_get --app=$app --key=password)
+	password_hash=$(echo -n admin:BaikalDAV:$password | md5sum | cut -d ' ' -f 1)
+	ynh_app_setting_set --app=$app --key=password_hash --value=$password_hash
 fi
 
 
@@ -138,12 +145,6 @@ then
 	# UPGRADE BAIKAL CONFIGURATION
 	#=================================================
 	ynh_script_progression --message="Upgrading the configuration file..." --weight=2
-
-	if [ -z "$password_hash" ]; then
-		password=$(ynh_app_setting_get --app=$app --key=password)
-		password_hash=$(echo -n admin:BaikalDAV:$password | md5sum | cut -d ' ' -f 1)
-		ynh_app_setting_set --app=$app --key=password_hash --value=$password_hash
-	fi
 
 	timezone=$(cat /etc/timezone)
 	path=${path_url%/}

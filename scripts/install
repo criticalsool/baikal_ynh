@@ -23,7 +23,7 @@ domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 password=$YNH_APP_ARG_PASSWORD
 timezone=$(cat /etc/timezone)
-deskey=$(ynh_string_random 24)
+encrypt_key=$(ynh_string_random 24)
 password_hash=$(echo -n admin:BaikalDAV:$password | sha256sum | cut -d ' ' -f 1)
 
 app=$YNH_APP_INSTANCE_NAME
@@ -52,7 +52,7 @@ ynh_script_progression --message="Storing installation settings..." --weight=2
 
 ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
-ynh_app_setting_set --app=$app --key=encrypt_key --value="$deskey"
+ynh_app_setting_set --app=$app --key=encrypt_key --value="$encrypt_key"
 ynh_app_setting_set --app=$app --key=password_hash --value="$password_hash"
 
 #=================================================
