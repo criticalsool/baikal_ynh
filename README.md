@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Baïkal for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![Working status](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)  
 [![Install Baïkal with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=baikal)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -25,25 +25,26 @@ Baïkal allows to seamlessly access your contacts and calendars from every devic
 
 ## Screenshots
 
-![](./doc/screenshots/baikal-in-use.png)
+![Screenshot of Baïkal](./doc/screenshots/baikal-in-use.png)
 
 ## Documentation and resources
 
-* Official app website: http://sabre.io/baikal/
-* Official admin documentation: https://sabre.io/dav/
-* Upstream app code repository: https://github.com/sabre-io/Baikal
-* YunoHost documentation for this app: https://yunohost.org/app_baikal
-* Report a bug: https://github.com/YunoHost-Apps/baikal_ynh/issues
+* Official app website: <http://sabre.io/baikal/>
+* Official admin documentation: <https://sabre.io/dav/>
+* Upstream app code repository: <https://github.com/sabre-io/Baikal>
+* YunoHost documentation for this app: <https://yunohost.org/app_baikal>
+* Report a bug: <https://github.com/YunoHost-Apps/baikal_ynh/issues>
 
 ## Developer info
 
 Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/baikal_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
-```
+
+``` bash
 sudo yunohost app install https://github.com/YunoHost-Apps/baikal_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade baikal -u https://github.com/YunoHost-Apps/baikal_ynh/tree/testing --debug
 ```
 
-**More info regarding app packaging:** https://yunohost.org/packaging_apps
+**More info regarding app packaging:** <https://yunohost.org/packaging_apps>
