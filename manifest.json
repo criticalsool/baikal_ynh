@@ -1,33 +1,39 @@
 {
+    "name": "Baïkal",
     "id": "baikal",
-    "name": "Baikal",
     "packaging_format": 1,
     "description": {
         "en": "Lightweight CalDAV and CardDAV server",
         "fr": "Serveur CalDAV et CardDAV léger"
     },
-    "version": "0.7.1~ynh2",
+    "version": "0.9.2~ynh1",
     "url": "http://baikal-server.com/",
+    "upstream": {
+        "license": "GPL-3.0",
+        "website": "http://sabre.io/baikal/",
+        "demo": "https://demo.yunohost.org/baikal/admin/",
+        "admindoc": "https://sabre.io/dav/",
+        "code": "https://github.com/sabre-io/Baikal"
+    },
     "license": "GPL-3.0",
     "maintainer": {
         "name": "julien",
         "email": "julien.malik@paraiso.me"
     },
     "requirements": {
-        "yunohost": ">= 4.1.7"
+        "yunohost": ">= 4.3.0"
     },
     "multi_instance": false,
     "services": [
         "nginx",
-        "php7.3-fpm",
+        "php8.0-fpm",
         "mysql"
     ],
     "arguments": {
         "install" : [
             {
                 "name": "domain",
-                "type": "domain",
-                "example": "domain.org"
+                "type": "domain"
             },
             {
                 "name": "path",
@@ -37,8 +43,7 @@
             },
             {
                 "name": "password",
-                "type": "password",
-                "example": "mysecret"
+                "type": "password"
             }
         ]
     }
