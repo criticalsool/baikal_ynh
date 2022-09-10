@@ -13,6 +13,7 @@
         "website": "http://sabre.io/baikal/",
         "demo": "https://demo.yunohost.org/baikal/admin/",
         "admindoc": "https://sabre.io/dav/",
+        "userdoc": "https://github.com/AlexandreMonroche/BaikalGuide",
         "code": "https://github.com/sabre-io/Baikal"
     },
     "license": "GPL-3.0",
