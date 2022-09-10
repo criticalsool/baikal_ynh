@@ -127,7 +127,6 @@ ynh_mysql_connect_as --user=$db_user --password="$db_pwd" --database=$db_name \
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-#bk_conf="${final_path}/config/baikal.yaml"
 path=${path_url%/}
 
 ynh_add_config --template="../conf/baikal.yaml" --destination="$final_path/config/baikal.yaml"
