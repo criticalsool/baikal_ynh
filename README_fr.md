@@ -31,6 +31,7 @@ Baïkal permet d'accéder de manière transparente à vos contacts et calendrier
 ## Documentations et ressources
 
 * Site officiel de l'app : <http://sabre.io/baikal/>
+* Documentation officielle utilisateur : <https://github.com/AlexandreMonroche/BaikalGuide>
 * Documentation officielle de l'admin : <https://sabre.io/dav/>
 * Dépôt de code officiel de l'app : <https://github.com/sabre-io/Baikal>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_baikal>
