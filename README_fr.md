@@ -15,11 +15,12 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Vue d'ensemble
 
-[Baïkal](http://baikal-server.com/) is a lightweight CalDAV+CardDAV server. It offers an extensive web interface with easy management of users, address books and calendars. It is fast and simple to install and only needs a basic php capable server. The data can be stored in a MySQL or a SQLite database.
+[Baïkal](http://baikal-server.com/) est un serveur léger CalDAV+CardDAV. Il offre une interface Web étendue avec une gestion facile des utilisateurs, des carnets d'adresses et des calendriers. Il est rapide et simple à installer et ne nécessite qu'un serveur de base. Les données sont stockées dans une base de données MySQL.
 
-Baïkal allows to seamlessly access your contacts and calendars from every device. It is compatible with iOS, Mac OS X, DAVx5 on Android, Mozilla Thunderbird and every other CalDAV and CardDAV capable application. Protect your privacy by hosting calendars and contacts yourself - with Baïkal.
+Baïkal permet d'accéder de manière transparente à vos contacts et calendriers depuis n'importe quel appareil. Il est compatible avec iOS, macOS, DAVx5 sur Android, Mozilla Thunderbird et toutes les autres applications compatibles CalDAV et CardDAV. Protégez votre vie privée en hébergeant vous-même des calendriers et contacts avec Baïkal.
 
-**Version incluse :** 0.9.2~ynh1
+**Version incluse :** 0.9.2~ynh2
+
 
 **Démo :** https://demo.yunohost.org/baikal/admin/
 
@@ -30,6 +31,7 @@ Baïkal allows to seamlessly access your contacts and calendars from every devic
 ## Documentations et ressources
 
 * Site officiel de l'app : <http://sabre.io/baikal/>
+* Documentation officielle utilisateur : <https://github.com/AlexandreMonroche/BaikalGuide>
 * Documentation officielle de l'admin : <https://sabre.io/dav/>
 * Dépôt de code officiel de l'app : <https://github.com/sabre-io/Baikal>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_baikal>
