@@ -22,13 +22,14 @@ final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
 db_user=$db_name
 db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
-phpversion=$YNH_PHP_VERSION
+phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
 password_hash=$(ynh_app_setting_get --app=$app --key=password_hash)
 encrypt_key=$(ynh_app_setting_get --app=$app --key=encrypt_key)
 
 #=================================================
 # CHECK VERSION
 #=================================================
+ynh_script_progression --message="Checking version..." --weight=1
 
 upgrade_type=$(ynh_check_app_version_changed)
 
@@ -40,12 +41,14 @@ ynh_script_progression --message="Backing up the app before upgrading (may take 
 # Backup the current version of the app
 ynh_backup_before_upgrade
 ynh_clean_setup () {
-	# restore it if the upgrade fails
+	# Restore it if the upgrade fails
 	ynh_restore_upgradebackup
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
+#=================================================
+# STANDARD UPGRADE STEPS
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
@@ -92,8 +95,6 @@ ynh_script_progression --message="Making sure dedicated system user exists..." -
 ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
@@ -101,7 +102,8 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=3
 
-	ynh_setup_source --dest_dir="$final_path" --keep="Specific config"
+	# Download, check integrity, uncompress and patch the source from app.src
+	ynh_setup_source --dest_dir="$final_path" --keep="config/baikal.yaml"
 fi
 
 chmod 750 "$final_path"
@@ -134,16 +136,13 @@ ynh_add_nginx_config
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
-# UPGRADE BAIKAL
+# UPGRADE BAIKAL CONFIGURATION
 #=================================================
 
 # We keep this to allow upgrade the config file in case it needs to be changed.
 
 if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
-	#=================================================
-	# UPGRADE BAIKAL CONFIGURATION
-	#=================================================
 	ynh_script_progression --message="Upgrading the configuration file..." --weight=2
 
 	timezone=$(cat /etc/timezone)
@@ -153,6 +152,8 @@ then
 	chmod 640 "$final_path/config/baikal.yaml"
 fi
 
+#=================================================
+# GENERIC FINALIZATION
 #=================================================
 # RELOAD NGINX
 #=================================================
