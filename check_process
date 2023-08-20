@@ -13,6 +13,8 @@
 		upgrade=1
 		#0.7.1~ynh2
 		upgrade=1	from_commit=7c074c7b18322cde08c4eb57ffbc5ae174b7ae65
+		#0.9.3~ynh1
+		upgrade=1	from_commit=330692e457ef2b475046d1724d3f198f007d5512
 		backup_restore=1
 		multi_instance=0
 		port_already_use=0
@@ -24,3 +26,7 @@ Notification=none
 	; commit=7c074c7b18322cde08c4eb57ffbc5ae174b7ae65
 		name=Testing #60
 		manifest_arg=domain=DOMAIN&path=PATH&password=mysecret&
+	; commit=330692e457ef2b475046d1724d3f198f007d5512
+		name=Testing #0.9.3~ynh1
+		manifest_arg=domain=DOMAIN&path=PATH&password=mysecret&
+
