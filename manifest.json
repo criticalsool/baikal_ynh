@@ -10,7 +10,7 @@
     "url": "http://baikal-server.com/",
     "upstream": {
         "license": "GPL-3.0",
-        "website": "http://sabre.io/baikal/",
+        "website": "https://sabre.io/baikal/",
         "demo": "https://demo.yunohost.org/baikal/admin/",
         "admindoc": "https://sabre.io/dav/",
         "userdoc": "https://github.com/AlexandreMonroche/BaikalGuide",
@@ -22,7 +22,7 @@
         "email": ""
     },
     "requirements": {
-        "yunohost": ">= 11.0.9"
+        "yunohost": ">= 11.2"
     },
     "multi_instance": false,
     "services": [
