@@ -30,7 +30,7 @@ Baïkal allows to seamlessly access your contacts and calendars from every devic
 
 ## Documentation and resources
 
-* Official app website: <http://sabre.io/baikal/>
+* Official app website: <https://sabre.io/baikal/>
 * Official user documentation: <https://github.com/AlexandreMonroche/BaikalGuide>
 * Official admin documentation: <https://sabre.io/dav/>
 * Upstream app code repository: <https://github.com/sabre-io/Baikal>
