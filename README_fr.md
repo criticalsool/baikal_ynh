@@ -5,15 +5,16 @@ It shall NOT be edited by hand.
 
 # Baïkal pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)
+
 [![Installer Baïkal avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=baikal)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Baïkal rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Baïkal rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 [Baïkal](http://baikal-server.com/) est un serveur léger CalDAV+CardDAV. Il offre une interface Web étendue avec une gestion facile des utilisateurs, des carnets d'adresses et des calendriers. Il est rapide et simple à installer et ne nécessite qu'un serveur de base. Les données sont stockées dans une base de données MySQL.
 
@@ -23,16 +24,16 @@ Baïkal permet d'accéder de manière transparente à vos contacts et calendrier
 
 **Démo :** https://demo.yunohost.org/baikal/admin/
 
-## Captures d'écran
+## Captures d’écran
 
-![Capture d'écran de Baïkal](./doc/screenshots/baikal-in-use.png)
+![Capture d’écran de Baïkal](./doc/screenshots/baikal-in-use.png)
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <http://sabre.io/baikal/>
+* Site officiel de l’app : <http://sabre.io/baikal/>
 * Documentation officielle utilisateur : <https://github.com/AlexandreMonroche/BaikalGuide>
-* Documentation officielle de l'admin : <https://sabre.io/dav/>
-* Dépôt de code officiel de l'app : <https://github.com/sabre-io/Baikal>
+* Documentation officielle de l’admin : <https://sabre.io/dav/>
+* Dépôt de code officiel de l’app : <https://github.com/sabre-io/Baikal>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_baikal>
 * Signaler un bug : <https://github.com/YunoHost-Apps/baikal_ynh/issues>
 
@@ -48,4 +49,4 @@ ou
 sudo yunohost app upgrade baikal -u https://github.com/YunoHost-Apps/baikal_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
