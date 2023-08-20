@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Baïkal for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![Working status](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![Working status](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)
+
 [![Install Baïkal with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=baikal)
 
 *[Lire ce readme en français.](./README_fr.md)*
