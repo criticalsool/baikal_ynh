@@ -7,7 +7,7 @@
         "fr": "Serveur CalDAV et CardDAV léger"
     },
     "version": "0.9.3~ynh1",
-    "url": "http://baikal-server.com/",
+    "url": "https://sabre.io/baikal/",
     "upstream": {
         "license": "GPL-3.0",
         "website": "https://sabre.io/baikal/",
