@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Baïkal for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![Working status](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/baikal.svg)](https://dash.yunohost.org/appci/app/baikal) ![Working status](https://ci-apps.yunohost.org/ci/badges/baikal.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/baikal.maintain.svg)
+
 [![Install Baïkal with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=baikal)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -15,11 +16,11 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-[Baïkal](http://baikal-server.com/) is a lightweight CalDAV+CardDAV server. It offers an extensive web interface with easy management of users, address books and calendars. It is fast and simple to install and only needs a basic PHP capable server. The data are stored in a MySQL database.
+Baïkal is a lightweight CalDAV+CardDAV server. It offers an extensive web interface with easy management of users, address books and calendars. It is fast and simple to install and only needs a basic PHP capable server. The data are stored in a MySQL database.
 
 Baïkal allows to seamlessly access your contacts and calendars from every device. It is compatible with iOS, macOS, DAVx5 on Android, Mozilla Thunderbird and every other CalDAV and CardDAV capable application. Protect your privacy by hosting calendars and contacts yourself with Baïkal.
 
-**Shipped version:** 0.9.3~ynh1
+**Shipped version:** 0.9.3~ynh2
 
 **Demo:** https://demo.yunohost.org/baikal/admin/
 
@@ -29,7 +30,7 @@ Baïkal allows to seamlessly access your contacts and calendars from every devic
 
 ## Documentation and resources
 
-* Official app website: <http://sabre.io/baikal/>
+* Official app website: <https://sabre.io/baikal/>
 * Official user documentation: <https://github.com/AlexandreMonroche/BaikalGuide>
 * Official admin documentation: <https://sabre.io/dav/>
 * Upstream app code repository: <https://github.com/sabre-io/Baikal>
