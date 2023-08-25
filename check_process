@@ -24,4 +24,3 @@ Notification=none
 	; commit=330692e457ef2b475046d1724d3f198f007d5512
 		name=Testing #0.9.3~ynh1
 		manifest_arg=domain=DOMAIN&path=PATH&password=mysecret&
-
