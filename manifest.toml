@@ -1,0 +1,66 @@
+packaging_format = 2
+
+id = "baikal"
+name = "Baïkal"
+description.en = "Lightweight CalDAV and CardDAV server"
+description.fr = "Serveur CalDAV et CardDAV léger"
+
+version = "0.9.3~ynh2"
+
+maintainers = []
+
+[upstream]
+license = "GPL-3.0"
+website = "https://sabre.io/baikal/"
+demo = "https://demo.yunohost.org/baikal/admin/"
+admindoc = "https://sabre.io/dav/"
+userdoc = "https://github.com/AlexandreMonroche/BaikalGuide"
+code = "https://github.com/sabre-io/Baikal"
+
+[integration]
+yunohost = ">= 11.2"
+architectures = "all"
+multi_instance = false
+ldap = true
+sso = false
+disk = "50M"
+ram.build = "100M"
+ram.runtime = "50M"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/baikal"
+
+    [install.init_main_permission]
+    type = "group"
+    default = "all_users"
+
+    [install.password]
+    type = "password"
+
+[resources]
+        [resources.sources.main]
+        url = "https://github.com/sabre-io/Baikal/releases/download/0.9.3/baikal-0.9.3.zip"
+        sha256 = "d36955ce2e60a03875cf33ad793ddcecfae52096af39de1f2bf709de9f16cb5e"
+        autoupdate.strategy = "latest_github_tag"
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/"
+    main.auth_header = false
+    admin.url = "/admin"
+    admin.allowed= "admins"
+    admin.show_tile = false
+
+    [resources.apt]
+    packages = "mariadb-server, php8.2-xml, php8.2-mbstring, php8.2-mysql, php8.2-ldap"
+
+    [resources.database]
+    type = "mysql"
