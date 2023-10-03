@@ -10,110 +10,10 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=2
-
-app=$YNH_APP_INSTANCE_NAME
-
-domain=$(ynh_app_setting_get --app=$app --key=domain)
-path_url=$(ynh_app_setting_get --app=$app --key=path)
-final_path=$(ynh_app_setting_get --app=$app --key=final_path)
-db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-db_user=$db_name
-db_pwd=$(ynh_app_setting_get --app=$app --key=mysqlpwd)
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-password_hash=$(ynh_app_setting_get --app=$app --key=password_hash)
-encrypt_key=$(ynh_app_setting_get --app=$app --key=encrypt_key)
-
-fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
-fpm_free_footprint=$(ynh_app_setting_get --app=$app --key=fpm_free_footprint)
-fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
-
-#=================================================
 # CHECK VERSION
 #=================================================
-ynh_script_progression --message="Checking version..." --weight=1
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=4
-
-# Backup the current version of the app
-ynh_backup_before_upgrade
-ynh_clean_setup () {
-	# Restore it if the upgrade fails
-	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
-
-#=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
-
-# If final_path doesn't exist, create it
-if [ -z "$final_path" ]; then
-	final_path=/var/www/$app
-	ynh_app_setting_set --app=$app --key=final_path --value=$final_path
-fi
-
-# If db_name doesn't exist, create it
-if [ -z "$db_name" ]; then
-	db_name=$(ynh_sanitize_dbid --db_name=$app)
-	ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-fi
-
-# If password_hash doesn't exist, create it
-if [ -z "$password_hash" ]; then
-	password=$(ynh_app_setting_get --app=$app --key=password)
-	password_hash=$(echo -n admin:BaikalDAV:$password | md5sum | cut -d ' ' -f 1)
-	ynh_app_setting_set --app=$app --key=password_hash --value=$password_hash
-fi
-
-# If fpm_footprint doesn't exist, create it
-if [ -z "$fpm_footprint" ]; then
-    fpm_footprint=low
-    ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
-fi
-
-# If fpm_free_footprint doesn't exist, create it
-if [ -z "$fpm_free_footprint" ]; then
-    fpm_free_footprint=0
-    ynh_app_setting_set --app=$app --key=fpm_free_footprint --value=$fpm_free_footprint
-fi
-
-# If fpm_usage doesn't exist, create it
-if [ -z "$fpm_usage" ]; then
-    fpm_usage=low
-    ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
-fi
-
-# Cleaning legacy permissions
-if ynh_legacy_permissions_exists; then
-	ynh_legacy_permissions_delete_all
-
-	ynh_app_setting_delete --app=$app --key=is_public
-fi
-
-if ! ynh_permission_exists --permission="admin"; then
-	# Create the required permissions
-	ynh_permission_create --permission="admin" --url="/admin" --allowed="all_users"
-fi
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
-
-# Create a dedicated user (if not existing)
-ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -124,19 +24,11 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=3
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$final_path" --keep="Specific/ config/"
+	ynh_setup_source --dest_dir="$install_dir" --keep="config/baikal.yaml"
 fi
 
-chmod 750 "$final_path"
-chmod -R o-rwx "$final_path"
-chown -R $app:www-data "$final_path"
-
-#=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Upgrading dependencies..." --weight=5
-
-ynh_install_app_dependencies $pkg_dependencies
+chmod -R o-rwx "$install_dir"
+chown -R $app:www-data "$install_dir"
 
 #=================================================
 # PHP-FPM CONFIGURATION
@@ -144,12 +36,7 @@ ynh_install_app_dependencies $pkg_dependencies
 ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=2
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_footprint
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
+ynh_add_fpm_config
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -162,25 +49,16 @@ ynh_add_nginx_config
 
 # We keep this to allow upgrade the config file in case it needs to be changed.
 
-#if [ "$upgrade_type" == "UPGRADE_APP" ]
-#then
-#	ynh_script_progression --message="Upgrading the configuration file..." --weight=2
+if [ "$upgrade_type" == "UPGRADE_APP" ]
+then
+	ynh_script_progression --message="Upgrading the configuration file..." --weight=2
 
-#	timezone=$(cat /etc/timezone)
-#	path=${path_url%/}
-#	ynh_add_config --template="../conf/baikal.yaml" --destination="$final_path/config/baikal.yaml"
-#	chown $app: "$final_path/config/baikal.yaml"
-#	chmod 640 "$final_path/config/baikal.yaml"
-#fi
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# RELOAD NGINX
-#=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --weight=1
-
-ynh_systemd_action --service_name=nginx --action=reload
+	timezone=$(cat /etc/timezone)
+	path=${path%/}
+	ynh_add_config --template="../conf/baikal.yaml" --destination="$install_dir/config/baikal.yaml"
+	chown $app: "$install_dir/config/baikal.yaml"
+	chmod 640 "$install_dir/config/baikal.yaml"
+fi
 
 #=================================================
 # END OF SCRIPT
