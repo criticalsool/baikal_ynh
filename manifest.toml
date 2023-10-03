@@ -60,7 +60,7 @@ ram.runtime = "50M"
     admin.show_tile = false
 
     [resources.apt]
-    packages = "mariadb-server, php8.1-xml, php8.1-mbstring, php8.1-mysql, php8.1-ldap"
+    packages = "mariadb-server, php8.0-xml, php8.0-mbstring, php8.0-mysql, php8.0-ldap"
 
     [resources.database]
     type = "mysql"
