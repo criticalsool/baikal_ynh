@@ -18,6 +18,8 @@ ynh_remove_nginx_config
 
 ynh_remove_fpm_config
 
+ynh_remove_fail2ban_config
+
 #=================================================
 # END OF SCRIPT
 #=================================================
