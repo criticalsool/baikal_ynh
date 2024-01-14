@@ -39,7 +39,7 @@ ynh_add_fpm_config
 ynh_add_nginx_config
 
 # Create the logfile, required before configuring fail2ban
-touch "/var/log/${domain}-error.log"
+touch "/var/log/nginx/${domain}-error.log"
 
 # Create a dedicated fail2ban config
 ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex='"PHP message: user \(name stripped-out\) authentication failure for Baikal" while reading response header from upstream, client: <HOST>'
