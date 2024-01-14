@@ -41,6 +41,7 @@ ram.runtime = "50M"
     [install.init_main_permission]
     type = "group"
     default = "all_users"
+    help.en = "If you want to access Baikal with CalDAV or CardDAV clients, you need to allow access for visitors."
 
     [install.password]
     type = "password"
